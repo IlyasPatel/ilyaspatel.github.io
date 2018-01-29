@@ -215,7 +215,9 @@ The <a href="https://github.com/test-kitchen/busser" target="_blank">Busser</a> 
 So not really knowing much about the Linux ecosystem, I had to ask for some help on
 <a href="https://stackoverflow.com/questions/48050783/vagrant-ubuntu-trusty64-contains-old-version-of-ruby-which-causes-test-kitchen-t" target="_blank">Stackoverflow</a>
 
-#### Step 5 - Create our Test-Case
+---
+
+#### Step 5 - Create our Test-Case <input type="checkbox" style="" />
 
 The default Busser test runner uses the following folder structure relative to .kitchen.yml file
 
