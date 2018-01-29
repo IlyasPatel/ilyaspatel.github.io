@@ -217,7 +217,7 @@ So not really knowing much about the Linux ecosystem, I had to ask for some help
 
 ---
 
-#### Step 5 - Create our Test-Case <input type="checkbox" style="" />
+#### Step 5 - Create our Test-Case
 
 The default Busser test runner uses the following folder structure relative to .kitchen.yml file
 
