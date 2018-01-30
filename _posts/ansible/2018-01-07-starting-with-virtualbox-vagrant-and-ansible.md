@@ -289,7 +289,7 @@ on isolated platforms. This is quite exciting, a TDD method to design infrastruc
 
 <table>
     <colgroup>
-        <col width="25%" />
+        <col width="40%" />
         <col />
     </colgroup>
     <tr>
@@ -349,6 +349,7 @@ on isolated platforms. This is quite exciting, a TDD method to design infrastruc
         <td>Create a new file called playbook.yml</td>
     </tr>
 </table>
+<br />
 
 [my-first-blog-post]: /2018/01/01/my-first-blog-post
 [tdd-with-test-kitchen]: /2018/01/14/tdd-your-infrastructure-code-with-kitchen

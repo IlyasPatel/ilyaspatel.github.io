@@ -20,9 +20,11 @@ comments: true
     }
 </style>
 
-If you are following along, you will need to install VirtualBox, Vagrant and Ansible as walked-through in my [previous post][starting-with-virtualbox-vagrant-ansible].
+If you are following along, you will need to install VirtualBox, Vagrant and Ansible as walked-through in
+my [previous post][starting-with-virtualbox-vagrant-ansible].
 
-In this post, we will step through installing test-kitchen which is a unit-test library to assert your infrastructure code.
+In this post, we will go through the steps for installing <a href="https://kitchen.ci" target="_blank">test-kitchen</a>. Test-kitchen provides a test harness for automated testing of
+configuration management tools like Ansible. We will also be using Serverspec which is used to test the intended state.
 
 ---
 
@@ -37,9 +39,9 @@ In this tutorial, we will:
 
 ## Introduction
 
-With Test-Kitchen, you execute an Ansible playbook and the expected state of a system after it runs, and then Kitchen
+With test-kitchen, you execute an Ansible playbook and the expected state of a system after it runs, and then test-kitchen
 will confirm if your expectations are met.
-Test-Kitchen is a Ruby-based tool so you will need Ruby installed. This is the first time I've used Ruby so to clarify some terminology:
+Test-kitchen is a Ruby-based tool so you will need Ruby installed. This is the first time I've used Ruby so to clarify some terminology:
 
 * A Ruby Gem is a module or library that you can install and use in every project on your machine.
 * RubyGems is a package manager for the Ruby programming language that provides a standard format for distributing Gems.
@@ -51,7 +53,7 @@ Test-Kitchen is a Ruby-based tool so you will need Ruby installed. This is the f
 
 
 I'll be using `Vim` which is a text editor on Unix-like operating systems. This is useful to learn if you SSH into
-remote machines like AWS EC2 instances. To prevent repeating the commands, whenever you see the Vim command, you can refer
+remote machines often. To prevent repeating the commands in this post, whenever you see the **Vim** command, you can refer
 to this table to see how to insert and save text in files. I'll do the first one with you.
 
 <table>
@@ -91,7 +93,7 @@ simplifies the installation of software on the Mac operating system.
 
 To install Homebrew, just follow the simple instructions on their website.
 
-Once brew is installed, run:
+Once Homebrew is installed, run:
 
 `brew install ruby`
 
@@ -103,18 +105,19 @@ If you do not want to upgrade your Ruby version then feel free to continue and m
 
 #### Step 2 - Install Bundler
 
-The recommended way to install Kitchen is using <a href="https://bundler.io" target="_blank">Bundler</a> -
+The recommended way to install test-kitchen is using <a href="https://bundler.io" target="_blank">Bundler</a> -
 Bundler provides a consistent environment for Ruby projects by tracking and installing the exact Gems and versions that are needed.
 I think this is like Maven from the Java world.
 
-`sudo Gem install bundler`
+`sudo gem install bundler`
 
 ---
 
 #### Step 3 - Install Test-Kitchen
 
 
-Create a new directory which will contain all your virtual machine installations. I normally put all my projects under a directory called *development*.
+Create a new directory which will contain all your virtual machine installations. I normally put all my projects under
+a directory called *development*.
 Create a directory called *virtualmachines* and inside this create a directory called *ansible-test-kitchen*. 
 
 `mkdir virtualmachines && cd virtualmachines`
@@ -138,9 +141,9 @@ Insert the following contents to install the Gems we require:
 {% highlight ruby %}
 source 'https://rubygems.org'
 gem 'test-kitchen', '~> 1.20.0'
+gem 'serverspec', '~> 2.41.3'
 gem 'kitchen-ansible', '~> 0.48.1'
 gem 'kitchen-vagrant', '~> 1.3.0'
-gem 'serverspec', '~> 2.41.3'
 {% endhighlight ruby %}
 
 To save the changes:
@@ -158,11 +161,11 @@ then `Enter` to finish saving your changes.
 At the time of writing, these were the latest Gems. You can check rubygems.org for any newer versions:
 
 * <a href="https://rubygems.org/search?query=test-kitchen" target="_blank">test-kitchen</a> - Provides a test-harness to execute infrastructure code.
+* <a href="https://rubygems.org/search?query=serverspec" target="_blank">serverspec</a> - Serverspec tests the intended state of machines by SSH'ing to the machines. This is the assertion library.
 * <a href="https://rubygems.org/search?query=kitchen-ansible" target="_blank">kitchen-ansible</a> - This tells test-kitchen how to integrate with Ansible playbooks.
 * <a href="https://rubygems.org/search?query=kitchen-vagrant" target="_blank">kitchen-vagrant</a> - This tells test-kitchen which environment to use and how to interact with it.
-It will automatically generate a Vagrantfile and then run Vagrant up to create the environment. It will then run the Ansible playbook
+It will automatically generate a Vagrantfile and then run `Vagrant up` to create the environment. It will then run the Ansible playbook
 inside this new virtual machine before the tests are run.
-* <a href="https://rubygems.org/search?query=serverspec" target="_blank">serverspec</a> - Serverspec tests the intended state of machines by SSH'ing to the machines. This is the assertion library.
 
 From terminal, run `bundle install --path vendor/bundle`
 
@@ -226,7 +229,7 @@ So not really being familier with the Linux ecosystem, I sought assistance from
 
 #### Step 5 - Create our Test-Case
 
-The default Busser test runner uses the following folder structure relative to .kitchen.yml file
+The default Busser test runner uses the following directory structure relative to .kitchen.yml file
 
 `test/integration/SUITE/RUNNER`
 
@@ -256,7 +259,7 @@ Next we create the **test** file:
 
 `vim default_spec.rb`
 
-Test files must end in *_spec.rb and "default" is the name of our suite if you refer to the .kitchen.yml above.
+Test files must end in *_spec.rb and "default" is the name of our suite if you refer to the .kitchen.yml file above.
 
 Copy-and-paste the following tests:
 
@@ -320,12 +323,12 @@ If all works well, you should see the tests pass as you can see in green:
 
 ## Summary
 
-Test-Driven Development (TDD) is an approach to writing a failing test before your implementation code. In this post we looked
-at writing a failing test using Serverspec and then creating an Ansible playbook to make the test pass on a virtual machine.
+Test-Driven Development (TDD) is an approach to writing a test before your implementation code. In this post we looked
+at writing a test using Serverspec and then creating an Ansible playbook to make the test pass on a virtual machine.
+Test-kitchen was used to provide the harness to run the infrastructure code in isolation.
 
-We installed test-kitchen, a ruby based tool which provides a test-harness to run infrastructure code in isolation.
-
-We've spent a lot of time installing software and tools so far, so in the next few posts, I'll be learning more about Ansible.
+So far we have installed VirtualBox, Vagrant, Ansible and Test-Kitchen. My next few posts will be concentrating more on
+Ansible using TDD to verify our playbooks.
 
 #### Commands used in this post
 
