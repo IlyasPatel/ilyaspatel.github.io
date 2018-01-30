@@ -11,8 +11,12 @@ comments: true
         border:2px solid #EEEEEE;
     }
     td {
-        border:1px solid #DDDDDD;
-        padding: 5px
+        border: 1px solid #DDDDDD;
+        padding: 15px
+    }
+    table tr:nth-child(odd) {
+        background-color: #777;
+        color: #fff;
     }
 </style>
 
@@ -289,8 +293,8 @@ on isolated platforms. This is quite exciting, a TDD method to design infrastruc
         <col />
     </colgroup>
     <tr>
-        <td>Command</td>
-        <td>Description</td>
+        <td><b>Command</b></td>
+        <td><b>Description</b></td>
     </tr>
     <tr>
         <td>brew cask install VirtualBox</td>
@@ -344,7 +348,6 @@ on isolated platforms. This is quite exciting, a TDD method to design infrastruc
         <td>touch playbook.yml</td>
         <td>Create a new file called playbook.yml</td>
     </tr>
-
 </table>
 
 [my-first-blog-post]: /2018/01/01/my-first-blog-post
@@ -357,8 +360,8 @@ on isolated platforms. This is quite exciting, a TDD method to design infrastruc
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 /*
 var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "{{ page.url }}";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "{{ page.url }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 */
 (function() { // DON'T EDIT BELOW THIS LINE

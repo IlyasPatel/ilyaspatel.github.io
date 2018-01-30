@@ -11,8 +11,12 @@ comments: true
         border:2px solid #EEEEEE;
     }
     td {
-        border:1px solid #DDDDDD;
-        padding: 5px
+        border: 1px solid #DDDDDD;
+        padding: 10px
+    }
+    table tr:nth-child(odd) {
+        background-color: #777;
+        color: #fff;
     }
 </style>
 
@@ -37,9 +41,9 @@ With Test-Kitchen, you execute an Ansible playbook and the expected state of a s
 will confirm if your expectations are met.
 Test-Kitchen is a Ruby-based tool so you will need Ruby installed. This is the first time I've used Ruby so to clarify some terminology:
 
-* A Ruby gem is a module or library that you can install and use in every project on your machine.
+* A Ruby Gem is a module or library that you can install and use in every project on your machine.
 * RubyGems is a package manager for the Ruby programming language that provides a standard format for distributing Gems.
-* <a href="https://rubygems.org" target="_blank">https://rubygems.org</a> is the public repository to host gems.
+* <a href="https://rubygems.org" target="_blank">https://rubygems.org</a> is the public repository to host Gems.
 
 ---
 
@@ -100,10 +104,10 @@ If you do not want to upgrade your Ruby version then feel free to continue and m
 #### Step 2 - Install Bundler
 
 The recommended way to install Kitchen is using <a href="https://bundler.io" target="_blank">Bundler</a> -
-Bundler provides a consistent environment for Ruby projects by tracking and installing the exact gems and versions that are needed.
+Bundler provides a consistent environment for Ruby projects by tracking and installing the exact Gems and versions that are needed.
 I think this is like Maven from the Java world.
 
-`sudo gem install bundler`
+`sudo Gem install bundler`
 
 ---
 
@@ -122,7 +126,7 @@ On my machine, the full path looks like this:
 `/Users/pateli03/development/virtualmachines/ansible-test-kitchen`
 
 
-You will now need to tell Bundler which gems to install. Create a file called `Gemfile` in the *ansible-test-kitchen* directory.
+You will now need to tell Bundler which Gems to install. Create a file called `Gemfile` in the *ansible-test-kitchen* directory.
 
 `touch Gemfile`
 
@@ -151,12 +155,14 @@ then `Enter` to finish saving your changes.
 
 (**Note**: Don't enter the + symbol)
 
-At the time of writing, these were the latest gems. You can check rubygems.org for any newer versions:
+At the time of writing, these were the latest Gems. You can check rubygems.org for any newer versions:
 
-* <a href="https://rubygems.org/search?query=test-kitchen" target="_blank">test-kitchen</a>
-* <a href="https://rubygems.org/search?query=kitchen-ansible" target="_blank">kitchen-ansible</a>
-* <a href="https://rubygems.org/search?query=kitchen-vagrant" target="_blank">kitchen-vagrant</a>
-* <a href="https://rubygems.org/search?query=serverspec" target="_blank">serverspec</a>
+* <a href="https://rubygems.org/search?query=test-kitchen" target="_blank">test-kitchen</a> - Provides a test-harness to execute infrastructure code.
+* <a href="https://rubygems.org/search?query=kitchen-ansible" target="_blank">kitchen-ansible</a> - This tells test-kitchen how to integrate with Ansible playbooks.
+* <a href="https://rubygems.org/search?query=kitchen-vagrant" target="_blank">kitchen-vagrant</a> - This tells test-kitchen which environment to use and how to interact with it.
+It will automatically generate a Vagrantfile and then run Vagrant up to create the environment. It will then run the Ansible playbook
+inside this new virtual machine before the tests are run.
+* <a href="https://rubygems.org/search?query=serverspec" target="_blank">serverspec</a> - Serverspec tests the intended state of machines by SSH'ing to the machines. This is the assertion library.
 
 From terminal, run `bundle install --path vendor/bundle`
 
@@ -230,7 +236,7 @@ Thus creating this directory:
 
 `cd test/integration/default/serverspec`
 
-Create a spec_helper.rb file to include the serverspec gem and configure it for use with test-kitchen
+Create a spec_helper.rb file to include the serverspec Gem and configure it for use with test-kitchen
 
 `touch spec_helper.rb`
 
@@ -304,7 +310,7 @@ virtual machine and then run the tests.
 
 `cd ..` to change directory to the root of the project and then:
 
-`bundle exec kitchen verify`
+`bundle exec kitchen test`
 
 If all works well, you should see the tests pass as you can see in green:
 
@@ -313,11 +319,48 @@ If all works well, you should see the tests pass as you can see in green:
 ---
 
 ## Summary
-...
-<br />
+
+Test-Driven Development (TDD) is an approach to writing a failing test before your implementation code. In this post we looked
+at writing a failing test using Serverspec and then creating an Ansible playbook to make the test pass on a virtual machine.
+
+We installed test-kitchen, a ruby based tool which provides a test-harness to run infrastructure code in isolation.
+
+We've spent a lot of time installing software and tools so far, so in the next few posts, I'll be learning more about Ansible.
+
 #### Commands used in this post
 
-...
+<table>
+    <colgroup>
+        <col width="25%" />
+        <col />
+    </colgroup>
+    <tr>
+        <td>Command</td>
+        <td>Description</td>
+    </tr>
+    <tr>
+        <td>sudo gem install bundler</td>
+        <td>Installs a Ruby-based tool called Bundler. Bundler helps install the required Gems in your environment</td>
+    </tr>
+    <tr>
+        <td>bundle install --path vendor/bundle</td>
+        <td>Installs your Gem dependencies to vendor/bundle</td>
+    </tr>
+    <tr>
+        <td>bundle exec kitchen version</td>
+        <td>Confirms your Gem is installed, in this case the test-kitchen Gem</td>
+    </tr>
+    <tr>
+        <td>bundle exec kitchen create</td>
+        <td>Creates the environment that test-kitchen will use</td>
+    </tr>
+    <tr>
+        <td>bundle exec kitchen test</td>
+        <td>Runs the Serverspec tests.</td>
+    </tr>
+</table>
+<br />
+
 
 [starting-with-virtualbox-vagrant-ansible]: /2018/01/07/starting-with-virtualbox-vagrant-and-ansible
 
@@ -328,8 +371,8 @@ If all works well, you should see the tests pass as you can see in green:
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 /*
 var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "{{ page.url }}";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "{{ page.url }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 */
 (function() { // DON'T EDIT BELOW THIS LINE
