@@ -34,7 +34,7 @@ In this tutorial, we will:
 
 * Upgrade Ruby on your machine if necessary
 * Install Test-Kitchen
-* Write a failing test using ServerSpec
+* Write a failing test using Serverspec
 * Write the configuration to make the test pass
 
 ## Introduction
@@ -239,7 +239,7 @@ Thus creating this directory:
 
 `cd test/integration/default/serverspec`
 
-Create a spec_helper.rb file to include the serverspec Gem and configure it for use with test-kitchen
+Create a spec_helper.rb file to include the Serverspec Gem and configure it for use with test-kitchen
 
 `touch spec_helper.rb`
 
@@ -308,7 +308,7 @@ Copy-and-paste the following contents:
 {% endhighlight ruby %}
 
 
-Now for the grand finale, execute the following command which should create the virtual machine with MySql, install serverspec on the
+Now for the grand finale, execute the following command which should create the virtual machine with MySql, install Serverspec on the
 virtual machine and then run the tests.
 
 `cd ..` to change directory to the root of the project and then:
