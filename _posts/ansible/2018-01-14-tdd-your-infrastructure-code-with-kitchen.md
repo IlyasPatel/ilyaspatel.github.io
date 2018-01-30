@@ -1,6 +1,7 @@
 ---
 layout: post
 title: TDD your Infrastucture Code with Kitchen
+comments: true
 ---
 
 <style>
@@ -15,7 +16,7 @@ title: TDD your Infrastucture Code with Kitchen
     }
 </style>
 
-If you are following along, you will need to install VirtualBox, Vagrant and Ansible as walked-through my [previous post][starting-with-virtualbox-vagrant-ansible].
+If you are following along, you will need to install VirtualBox, Vagrant and Ansible as walked-through in my [previous post][starting-with-virtualbox-vagrant-ansible].
 
 In this post, we will step through installing test-kitchen which is a unit-test library to assert your infrastructure code.
 
@@ -45,7 +46,7 @@ Test-Kitchen is a Ruby-based tool so you will need Ruby installed. This is the f
 ### Vim
 
 
-I'll be using `Vim` which is a text editor on Unix-like operating system. It is useful to learn if you SSH into
+I'll be using `Vim` which is a text editor on Unix-like operating systems. This is useful to learn if you SSH into
 remote machines like AWS EC2 instances. To prevent repeating the commands, whenever you see the Vim command, you can refer
 to this table to see how to insert and save text in files. I'll do the first one with you.
 
@@ -60,7 +61,7 @@ to this table to see how to insert and save text in files. I'll do the first one
     </tr>
     <tr>
         <td valign="top">To insert text</td>
-        <td>Press <i>i</i> on your keyboard to insert text. You will see at the bottom of the terminal window change to -- INSERT --</td>
+        <td>Press <i>i</i> on your keyboard to insert text. You will see the bottom of the terminal window change to -- INSERT --</td>
     </tr>
     <tr>
         <td valign="top">To save the changes</td>
@@ -92,7 +93,7 @@ Once brew is installed, run:
 
 Executing `ruby --version` displayed `ruby 2.4.1p111 (2017-03-22 revision 58053) [x86_64-darwin15]` on my machine.
 
-If you do not want to upgrade your Ruby version then fill free to continue and maybe it will just work for you.
+If you do not want to upgrade your Ruby version then feel free to continue and maybe it will just work for you.
 
 ---
 
@@ -127,7 +128,7 @@ You will now need to tell Bundler which gems to install. Create a file called `G
 
 `vim Gemfile`
 
-Press `i` on your keyboard to *insert* text. You will see at the bottom of the terminal window change to `-- INSERT --`
+Press `i` on your keyboard to *insert* text. You will see the bottom of the terminal window change to `-- INSERT --`
 Insert the following contents to install the Gems we require:
 
 {% highlight ruby %}
@@ -162,7 +163,7 @@ From terminal, run `bundle install --path vendor/bundle`
 The `--path` option will install your dependencies to a location other than your system's Gem repository.
 In this case, it will install them to *vendor/bundle*. This will install all the dependencies required to run test-kitchen.
 
-Run `bundle exec kitchen version` to confirm the binary is ready to use. The version should match the version specified
+Run `bundle exec kitchen version` to confirm the binary is ready to use. This version should match the version specified
 in the Gemfile.
 
 ![alt text](/bundle_install.png "bundle install")
@@ -171,7 +172,7 @@ in the Gemfile.
 
 For our first test, we will install the MySQL database using an Ansible playbook and the test will confirm the database is installed and running.
 
-Let's start by specifying our environment by creating a .kitchen.yml file in the *ansible-test-kitchen* directory
+Let's specify our environment by creating a .kitchen.yml file in the *ansible-test-kitchen* directory
 and by defining a driver, provisioner and platform for the test.
 
 `touch .kitchen.yml`
@@ -212,7 +213,7 @@ I originally had some problems here as previously I was using ubuntu/trusty64 wh
 The <a href="https://github.com/test-kitchen/busser" target="_blank">Busser</a> dependency requires a newer version of Ruby.
 > Busser is a test setup and execution framework designed to work on remote nodes, https://github.com/test-kitchen/busser
 
-So not really knowing much about the Linux ecosystem, I had to ask for some help on
+So not really being familier with the Linux ecosystem, I sought assistance from
 <a href="https://stackoverflow.com/questions/48050783/vagrant-ubuntu-trusty64-contains-old-version-of-ruby-which-causes-test-kitchen-t" target="_blank">Stackoverflow</a>
 
 ---
@@ -223,7 +224,7 @@ The default Busser test runner uses the following folder structure relative to .
 
 `test/integration/SUITE/RUNNER`
 
-So create this directory:
+Thus creating this directory:
 
 `mkdir -p test/integration/default/serverspec`
 
@@ -249,7 +250,7 @@ Next we create the **test** file:
 
 `vim default_spec.rb`
 
-**Test files musts end in *_spec.rb** and default is the name of our suite if you refer to the .kitchen.yml above.
+Test files must end in *_spec.rb and "default" is the name of our suite if you refer to the .kitchen.yml above.
 
 Copy-and-paste the following tests:
 
@@ -305,7 +306,7 @@ virtual machine and then run the tests.
 
 `bundle exec kitchen verify`
 
-If all works well, you should see the tests past as you can see in green:
+If all works well, you should see the tests pass as you can see in green:
 
 ![alt text](/kitchen_verify.png "bundle exec kitchen verify")
 
@@ -320,3 +321,24 @@ If all works well, you should see the tests past as you can see in green:
 
 [starting-with-virtualbox-vagrant-ansible]: /2018/01/07/starting-with-virtualbox-vagrant-and-ansible
 
+<div id="disqus_thread"></div>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://ilyaspatel-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//ilyaspatel-github-io.disqus.com/count.js" async></script>
