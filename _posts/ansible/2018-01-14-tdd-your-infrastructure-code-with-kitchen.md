@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TDD your Infrastucture Code with Kitchen
+title: TDD your Infrastructure Code with Kitchen
 comments: true
 ---
 
