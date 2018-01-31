@@ -23,8 +23,9 @@ comments: true
 If you are following along, you will need to install VirtualBox, Vagrant and Ansible as walked-through in
 my [previous post][starting-with-virtualbox-vagrant-ansible].
 
-In this post, we will go through the steps for installing <a href="https://kitchen.ci" target="_blank">test-kitchen</a>. Test-kitchen provides a test harness for automated testing of
-configuration management tools like Ansible. We will also be using Serverspec which is used to test the intended state.
+In this post, we will go through the steps for installing <a href="https://kitchen.ci" target="_blank">test-kitchen</a>.
+Test-kitchen provides a test harness for automated testing of configuration management tools like Ansible.
+We will also be using Serverspec which is used to test the intended state.
 
 ---
 
@@ -33,13 +34,14 @@ configuration management tools like Ansible. We will also be using Serverspec wh
 In this tutorial, we will:
 
 * Upgrade Ruby on your machine if necessary
-* Install Test-Kitchen
-* Write a failing test using Serverspec
+* Install Bundler
+* Install Test-Kitchen and Serverspec
+* Write a test using Serverspec
 * Write the configuration to make the test pass
 
 ## Introduction
 
-With test-kitchen, you execute an Ansible playbook and the expected state of a system after it runs, and then test-kitchen
+With test-kitchen, you execute an Ansible playbook and the expected state of a system after it runs, and then Serverspec
 will confirm if your expectations are met.
 Test-kitchen is a Ruby-based tool so you will need Ruby installed. This is the first time I've used Ruby so to clarify some terminology:
 
@@ -73,7 +75,6 @@ to this table to see how to insert and save text in files. I'll do the first one
         <td valign="top">To save the changes</td>
         <td>
             Press <i>ESC</i> on the keyboard to come back to command mode <br />
-            then <i>Shift</i> + <i>:</i> <br />
             then <i>Shift</i> + <i>:</i> <br />
             then <i>w</i> + <i>q</i> <br />
             then <i>Enter</i> to finish saving your changes
@@ -222,8 +223,11 @@ I originally had some problems here as previously I was using ubuntu/trusty64 wh
 The <a href="https://github.com/test-kitchen/busser" target="_blank">Busser</a> dependency requires a newer version of Ruby.
 > Busser is a test setup and execution framework designed to work on remote nodes, https://github.com/test-kitchen/busser
 
-So not really being familier with the Linux ecosystem, I sought assistance from
+So not really being familiar with the Linux ecosystem, I sought assistance from
 <a href="https://stackoverflow.com/questions/48050783/vagrant-ubuntu-trusty64-contains-old-version-of-ruby-which-causes-test-kitchen-t" target="_blank">Stackoverflow</a>
+
+*kitchen-ansible* will start by installing Ansible and other dependencies on the machine. One of these dependencies is
+called *busser*, which is how the tests we are going to write soon get into the right place on the virtual machine.
 
 ---
 
@@ -328,7 +332,7 @@ at writing a test using Serverspec and then creating an Ansible playbook to make
 Test-kitchen was used to provide the harness to run the infrastructure code in isolation.
 
 So far we have installed VirtualBox, Vagrant, Ansible and Test-Kitchen. My next few posts will be concentrating more on
-Ansible using TDD to verify our playbooks.
+Ansible and extending our use of TDD to verify our playbooks.
 
 #### Commands used in this post
 
@@ -359,7 +363,7 @@ Ansible using TDD to verify our playbooks.
     </tr>
     <tr>
         <td>bundle exec kitchen test</td>
-        <td>Runs the Serverspec tests.</td>
+        <td>Runs the Serverspec tests</td>
     </tr>
 </table>
 <br />
