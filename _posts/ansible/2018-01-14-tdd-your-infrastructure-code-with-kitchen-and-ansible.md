@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TDD your Infrastructure Code with Kitchen
+title: TDD your Infrastructure Code with Kitchen and Ansible
 comments: true
 ---
 
@@ -369,9 +369,6 @@ Ansible using TDD to verify our playbooks.
 
 <div id="disqus_thread"></div>
 <script>
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 /*
 var disqus_config = function () {
 this.page.url = "{{ page.url }}";  // Replace PAGE_URL with your page's canonical URL variable
